@@ -1,0 +1,33 @@
+services:
+  # ================================
+  # Frontend React + NGINX
+  # ================================
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: ecommerce-frontend:2.0
+    container_name: ecommerce-frontend-web
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      # ✅ Variables pour le backend (modifiables via .env, pas besoin de rebuild!)
+      - BACKEND_URL=${BACKEND_URL:-http://192.168.56.111:30080}
+      - BACKEND_HOST=${BACKEND_HOST:-api.ecommerce.local}
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=3", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.ecommerce.description=Frontend React Vite"
+      - "com.ecommerce.version=2.0"
+      
+networks:
+  ecommerce-network:
+    driver: bridge
