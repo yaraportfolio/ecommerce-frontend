@@ -2,10 +2,12 @@
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=nodedotjs&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?logo=github&logoColor=white)
+![GHCR](https://img.shields.io/badge/GHCR-registry-24292e?logo=github&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-K8s-326CE5?logo=kubernetes&logoColor=white)
 ![NGINX](https://img.shields.io/badge/NGINX-proxy-009639?logo=nginx&logoColor=white)
-![MariaDB](https://img.shields.io/badge/MariaDB-10.11-003545?logo=mariadb&logoColor=white)
 ![License](https://img.shields.io/badge/license-Portfolio-blueviolet)
 
 Application React e-commerce conçue comme **support pédagogique DevOps/SRE**, démontrant la progression naturelle des infrastructures modernes : du déploiement traditionnel jusqu'à l'orchestration Kubernetes, en passant par Docker Compose et Docker Swarm.
@@ -60,14 +62,21 @@ Ce projet illustre **l'évolution naturelle** d'une infrastructure e-commerce, d
 
 ```bash
 # Cloner le projet
-git clone https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-frontend.git
+git clone https://github.com/yaraportfolio/ecommerce-frontend.git
 cd ecommerce-frontend
+
+# Installer les dépendances
+npm install
 
 # Configurer l'environnement
 cp .env.example .env
-nano .env  # Définir BACKEND_URL
+nano .env  # Définir VITE_BACKEND_URL
 
-# Démarrer (Docker Compose)
+# Mode développement
+npm run dev
+
+# Build production
+npm run build
 docker compose up -d
 
 # ✅ Frontend : http://localhost
