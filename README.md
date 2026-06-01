@@ -140,17 +140,17 @@ docker compose up -d
 **Projets liés - Backend & Database:**
 ```
 # Repo Backend
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-backend
+https://github.com/yaraportfolio/ecommerce-backend
 
 # Repo Database
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database
+https://github.com/yaraportfolio/ecommerce-database
 ```
 
 **Déploiement :**
 
 ```bash
 # 1. Cloner et builder
-git clone https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-frontend.git
+git clone https://github.com/yaraportfolio/ecommerce-frontend.git
 cd ecommerce-frontend
 npm install && npm run build
 
@@ -250,10 +250,10 @@ DNS local (poste client) :
 **Projets liés - Backend & Database:**
 ```
 # Repo Backend (Option docker)
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-backend
+https://github.com/yaraportfolio/ecommerce-backend
 
 # Repo Database (Option docker)
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database
+https://github.com/yaraportfolio/ecommerce-database
 ```
 
 **Déploiement :**
@@ -319,13 +319,13 @@ Logs de démarrage attendus :
 **Projets liés - Microservices (Docker Swarm) :**
 ```
 # Repo Microservices
-https://gitlab.com/yara_portfolio/devops/ecommerce/microservice
+https://github.com/yaraportfolio/ecommerce-microservices
 
 # Repo - Déployer les microservices sur Docker Swarm
-https://gitlab.com/yara_portfolio/devops/ecommerce/devops-tools/docker-swarm
+https://github.com/yaraportfolio/docker-swarm
 
 # Repo Database (traditionnel & docker)
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database
+https://github.com/yaraportfolio/ecommerce-database
 ```
 
 ---
@@ -360,13 +360,13 @@ https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database
 **Projets liés - Microservices (Kubernetes) :**
 ```
 # Repo Microservices
-https://gitlab.com/yara_portfolio/devops/ecommerce/microservice
+https://github.com/yaraportfolio/ecommerce-microservices
 
 # Repo - Déployer les microservices sur Kubernetes via Helm
-https://gitlab.com/yara_portfolio/devops/ecommerce/devops-tools/k8s-helm-chart
+https://github.com/yaraportfolio/ecommerce-k8s-helm
 
 # Repo Database (traditionnel & docker)
-https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database
+https://github.com/yaraportfolio/ecommerce-database
 ```
 
 ---
@@ -465,12 +465,11 @@ Modérer avis clients
 
 | Composant | Repository |
 |-----------|------------|
-| 🗄️ Base de données | [ecommerce-database](https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-database) |
-| 🔌 Backend Monolithique | [ecommerce-backend](https://gitlab.com/yara_portfolio/devops/ecommerce/ecommerce-backend) |
-| ☸️  Microservices | [microservice](https://gitlab.com/yara_portfolio/devops/ecommerce/microservice) |
-| 🐝 Docker Swarm | [docker-swarm](https://gitlab.com/yara_portfolio/devops/ecommerce/devops-tools/docker-swarm) |
-| ⎈ Kubernetes Helm | [k8s-helm-chart](https://gitlab.com/yara_portfolio/devops/ecommerce/devops-tools/k8s-helm-chart) |
-| 🤖 Ansible Deployment | [ansible-deployment](https://gitlab.com/yara_portfolio/devops/ecommerce/ansible-deployment) |
+| 🔐 Auth Service | [auth-service](https://github.com/yaraportfolio/ecommerce-auth-service) |
+| 📦 Product Service | [product-service](https://github.com/yaraportfolio/ecommerce-product-service) |
+| 🛒 Order Service | [order-service](https://github.com/yaraportfolio/ecommerce-order-service) |
+| ⭐ Review Service | [review-service](https://github.com/yaraportfolio/ecommerce-review-service) |
+| ⎈ Kubernetes Helm | [ecommerce-k8s-helm](https://github.com/yaraportfolio/ecommerce-k8s-helm) |
 
 ---
 
@@ -488,13 +487,6 @@ Modérer avis clients
 
 **Yara Mahi Mohamed**  
 Portfolio DevOps & SRE — Architecture Microservices  
-
-Ce projet fait partie d'un portfolio complet démontrant :
-- Infrastructure as Code (Ansible)
-- Conteneurisation & Orchestration (Docker, Swarm, Kubernetes)
-- GitOps & CI/CD (GitLab CI, Jenkins, Semaphore UI)
-- Monitoring (Prometheus, Grafana, Loki)
-- Architecture Microservices (Docker Stack, Helm)
 
 ---
 
