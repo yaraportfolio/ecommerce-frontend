@@ -1,4 +1,4 @@
-# 🛒 E-Commerce Frontend — Portfolio DevOps & SRE
+# 🛒 E-Commerce Frontend - Portfolio DevOps & SRE
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite&logoColor=white)
@@ -103,7 +103,7 @@ docker compose up -d
 | Variable | Description | Défaut | Requis |
 |----------|-------------|--------|--------|
 | `FRONTEND_PORT` | Port d'exposition | `80` | ❌ |
-| `BACKEND_URL` | URL complète de l'API backend | — | ✅ |
+| `BACKEND_URL` | URL complète de l'API backend | - | ✅ |
 | `BACKEND_HOST` | Header Host pour l'Ingress K8s | `api.ecommerce.local` | ✅ |
 | `NODE_ENV` | Environnement d'exécution | `production` | ❌ |
 
@@ -113,7 +113,7 @@ docker compose up -d
 
 ## 🏗️ Architecture
 
-### Option 1 — VM Traditionnelle (Ops / Exploitation)
+### Option 1 - VM Traditionnelle (Ops / Exploitation)
 
 **Contexte :** Infrastructure classique 3-tiers. Chaque composant sur une VM dédiée.  
 **Quand l'utiliser :** Environnements legacy, équipes sans Docker, conformité stricte.
@@ -133,7 +133,7 @@ docker compose up -d
                         │ TCP 3306
 ┌───────────────────────▼─────────────────────────┐
 │  Database VM (192.168.56.115)                   │
-│  └── MariaDB 10.11 — ecommerce_db               │
+│  └── MariaDB 10.11 - ecommerce_db               │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -177,7 +177,7 @@ server {
     access_log /var/log/nginx/ecommerce-access.log;
     error_log  /var/log/nginx/ecommerce-error.log;
 
-    # SPA — Toutes les routes vers index.html
+    # SPA - Toutes les routes vers index.html
     location / {
         try_files $uri $uri/ /index.html;
     }
@@ -185,11 +185,11 @@ server {
     # Proxy API
     # Choisir selon le backend cible :
     location /api {
-        # Option 1 — Backend Monolithique
+        # Option 1 - Backend Monolithique
         proxy_pass http://192.168.56.112:3000;
-        # Option 3 — Docker Swarm (Kong Gateway)
+        # Option 3 - Docker Swarm (Kong Gateway)
         # proxy_pass http://192.168.56.111:8000;
-        # Option 4 — Kubernetes Ingress
+        # Option 4 - Kubernetes Ingress
         # proxy_pass http://192.168.56.111:30080;
 
         proxy_http_version 1.1;
@@ -233,11 +233,11 @@ DNS local (poste client) :
 
 ---
 
-### Option 2 — Docker Compose (DevOps / Dev & Test)
+### Option 2 - Docker Compose (DevOps / Dev & Test)
 
 **Contexte :** Conteneurisation complète sur une ou plusieurs VMs.  
 **Quand l'utiliser :** Développement local, CI/CD, déploiement rapide sans cluster.  
-**Atout clé :** Image NGINX avec `envsubst` — changement de backend sans rebuild.
+**Atout clé :** Image NGINX avec `envsubst` - changement de backend sans rebuild.
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -289,7 +289,7 @@ Logs de démarrage attendus :
 
 ---
 
-### Option 3 — Docker Swarm (SRE / Production simple)
+### Option 3 - Docker Swarm (SRE / Production simple)
 
 **Contexte :** Clustering natif Docker. Haute disponibilité sans la complexité K8s.  
 **Quand l'utiliser :** Équipes qui maîtrisent Docker, production sans équipe SRE dédiée.  
@@ -330,7 +330,7 @@ https://github.com/yaraportfolio/ecommerce-database
 
 ---
 
-### Option 4 — Kubernetes + Helm (SRE / Production avancée)
+### Option 4 - Kubernetes + Helm (SRE / Production avancée)
 
 **Contexte :** Orchestration complète. Auto-healing, HPA, rolling updates, rollback via Helm.  
 **Quand l'utiliser :** Prod à haute disponibilité, scaling automatique, équipe SRE.  
@@ -486,7 +486,7 @@ Modérer avis clients
 ## 👨‍💻 Auteur
 
 **Yara Mahi Mohamed**  
-Portfolio DevOps & SRE — Architecture Microservices  
+Portfolio DevOps & SRE - Architecture Microservices  
 
 ---
 
