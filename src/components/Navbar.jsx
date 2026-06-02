@@ -3,12 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
+const DEPLOY_BADGES = {
+  ec2:        { label: 'EC2 + ASG',       color: 'bg-orange-500' },
+  beanstalk:  { label: 'Elastic Beanstalk', color: 'bg-green-500' },
+  ecs:        { label: 'ECS Fargate',     color: 'bg-purple-500' },
+  eks:        { label: 'EKS + Helm',      color: 'bg-blue-500'   },
+};
+
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { getItemCount } = useCart();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const deployPlatform = import.meta.env.VITE_DEPLOY_PLATFORM?.toLowerCase();
+  const badge = DEPLOY_BADGES[deployPlatform];
 
   const handleLogout = () => {
     logout();
@@ -36,6 +46,11 @@ export default function Navbar() {
             <span className="text-2xl">🛒</span>
             <span className="text-xl font-bold hidden sm:inline">DevOps E-Commerce</span>
             <span className="text-xl font-bold sm:hidden">DevOps</span>
+            {badge && (
+              <span className={`hidden sm:inline-block text-xs font-semibold px-2 py-0.5 rounded-full text-white ${badge.color}`}>
+                ☁️ {badge.label}
+              </span>
+            )}
           </Link>
 
           {/* Search Bar (Desktop) */}
