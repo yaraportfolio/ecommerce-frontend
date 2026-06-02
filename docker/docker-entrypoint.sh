@@ -8,7 +8,7 @@ set -e
 echo "🔧 Substituting environment variables in NGINX config..."
 
 # Remplacer les variables dans le template
-tenvsubs '${BACKEND_URL} ${BACKEND_HOST}' \
+envsubst '${BACKEND_URL} ${BACKEND_HOST}' \
   < /etc/nginx/conf.d/default.conf.template \
   > /etc/nginx/conf.d/default.conf
 

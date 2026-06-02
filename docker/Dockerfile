@@ -14,6 +14,10 @@ RUN npm ci
 # Copier le code source
 COPY . .
 
+# Variable de plateforme pour le badge navbar (ex: ec2, beanstalk, ecs, eks)
+ARG VITE_DEPLOY_PLATFORM
+ENV VITE_DEPLOY_PLATFORM=$VITE_DEPLOY_PLATFORM
+
 # Build de l'application
 RUN npm run build
 
