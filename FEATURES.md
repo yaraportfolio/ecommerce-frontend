@@ -7,7 +7,7 @@ Il s'agit une **plateforme e-commerce B2C (Business to Consumer)** avec une arch
 - Le système d'avis/évaluations
 
 
-![Acceuil](./.img/acceuil.png)
+![Accueil](https://raw.githubusercontent.com/yaraportfolio/ecommerce-terraform-aws/main/img/shop-home.png)
 
 ---
 
@@ -44,7 +44,7 @@ Il s'agit une **plateforme e-commerce B2C (Business to Consumer)** avec une arch
   - Avis clients
 
 
-![Product](./.img/product.png)
+![Product](https://raw.githubusercontent.com/yaraportfolio/ecommerce-terraform-aws/main/img/shop-products.png)
 
 ---
 

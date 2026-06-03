@@ -91,32 +91,34 @@ npm run build        # génère dist/
 
 ---
 
-## 🚀 Déploiement on-premise des microservices
+## 🚀 Déploiement on-premise
 
-Le frontend se déploie aux côtés des 4 microservices selon 3 niveaux de maturité infra :
+On distingue le déploiement du **frontend** (ce repo) de celui des **microservices** (repos dédiés). Le frontend proxifie `/api/*` vers la couche microservices, quelle que soit sa cible.
 
-| | Docker Compose | Docker Swarm | Kubernetes + Helm |
-|--|:--------------:|:------------:|:-----------------:|
-| **Profil** | Dev / Test | Prod simple | Prod avancée |
-| **Haute dispo** | ❌ | ✅ | ✅ |
-| **Auto-scaling** | ❌ | ✅ partiel | ✅ HPA |
-| **Auto-healing** | ❌ | ✅ | ✅ |
-| **Rolling update** | Manuel | ✅ | ✅ |
-| **Rollback** | Manuel | ✅ | ✅ `helm rollback` |
+### A. Le frontend — *2 façons*
 
-### Option 1 — Docker Compose (dev / test)
+#### A1 — Directement sur un serveur (NGINX natif)
 
-Tous les conteneurs (frontend + 4 microservices + base) sur un hôte unique. Le frontend proxifie `/api` vers la passerelle locale.
+Build statique servi par un NGINX installé sur la VM, sans Docker.
+
+```bash
+npm install && npm run build
+sudo cp -r dist/* /var/www/html/ecommerce/
+# Config NGINX (voir bloc ci-dessous) → proxy /api vers la couche microservices
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+#### A2 — Docker / Docker Compose (conteneur NGINX)
+
+Image multi-stage (Node → NGINX alpine). `BACKEND_URL` injecté par `envsubst` au démarrage — **changer de backend sans rebuild**.
 
 ```bash
 cp .env.example .env
-# Éditer BACKEND_URL → URL de la passerelle/ingress des microservices
+# Éditer BACKEND_URL → URL de la couche microservices (Ingress/Swarm)
 
 docker compose up -d
-docker compose ps          # Up (healthy) après ~40s
+docker compose restart frontend   # après modif de .env (~10s)
 ```
-
-**Atout `envsubst`** : `BACKEND_URL` est injecté dans la config NGINX au démarrage du conteneur — changer de backend = éditer `.env` + `docker compose restart frontend`, **sans rebuild**.
 
 ```
 🔧 Substituting environment variables in NGINX config...
@@ -126,38 +128,42 @@ docker compose ps          # Up (healthy) après ~40s
 🚀 Starting NGINX...
 ```
 
-### Option 2 — Docker Swarm (prod simple)
+### B. Les microservices — *Swarm ou Kubernetes*
 
-Cluster Docker natif : réplication des services, rolling updates, HA sans la complexité K8s.
+Les 4 microservices se déploient **indépendamment du frontend** (chacun son repo + image GHCR), au choix sur :
 
+| | Docker Swarm | Kubernetes + Helm |
+|--|:------------:|:-----------------:|
+| **Profil** | Prod simple | Prod avancée |
+| **Haute dispo** | ✅ | ✅ |
+| **Auto-scaling** | ✅ partiel | ✅ HPA |
+| **Auto-healing** | ✅ | ✅ |
+| **Rollback** | ✅ | ✅ `helm rollback` |
+
+**Docker Swarm** (cluster Docker natif, réplication des services) :
 ```
-Frontend VM (192.168.56.114)  → NGINX proxy vers la gateway Swarm
-        │
 Swarm Manager (192.168.56.111)
    ├── auth-service    (replicas: 2)
    ├── product-service (replicas: 2)
    ├── order-service   (replicas: 2)
    └── review-service  (replicas: 2)
-        │
+        │ MySQL :3306
 MariaDB (192.168.56.115, externe au cluster)
 ```
 
-### Option 3 — Kubernetes + Helm (prod avancée)
-
-Orchestration complète : auto-healing, HPA, rolling updates et rollback déclaratif. **Même chart que sur AWS EKS** (voir [ecommerce-k8s-helm](https://github.com/yaraportfolio/ecommerce-k8s-helm)).
-
+**Kubernetes + Helm** (orchestration, HPA, rollback déclaratif) — **même chart que sur AWS EKS**, voir [ecommerce-k8s-helm](https://github.com/yaraportfolio/ecommerce-k8s-helm) :
 ```
-Frontend VM (192.168.56.114)  → NGINX proxy vers l'Ingress :30080
-        │
 K8s Cluster (192.168.56.111)
    ├── Ingress Controller (NodePort 30080)
    ├── auth-service    Pod (HPA)
    ├── product-service Pod (HPA)
    ├── order-service   Pod (HPA)
    └── review-service  Pod (HPA)
-        │
+        │ MySQL :3306
 MariaDB (192.168.56.115, externe au cluster)
 ```
+
+> Le frontend pointe son proxy `/api` vers la gateway Swarm ou l'Ingress K8s via `BACKEND_URL`.
 
 <details>
   <summary><strong>Config NGINX du frontend (proxy /api)</strong></summary>
