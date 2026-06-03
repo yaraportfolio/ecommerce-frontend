@@ -10,17 +10,36 @@
 ![NGINX](https://img.shields.io/badge/NGINX-proxy-009639?logo=nginx&logoColor=white)
 ![License](https://img.shields.io/badge/license-Portfolio-blueviolet)
 
-Application React e-commerce conçue comme **support pédagogique DevOps/SRE**, démontrant la progression naturelle des infrastructures modernes : du déploiement traditionnel jusqu'à l'orchestration Kubernetes, en passant par Docker Compose et Docker Swarm.
+Application React e-commerce conçue comme **support pédagogique DevOps/SRE**. Elle est **déployée sur AWS** (EKS, EC2/Beanstalk/ECS) — voir le bandeau ci-dessous — et documente aussi la **progression d'infrastructure on-premise** (VM → Docker → Swarm → Kubernetes), pour couvrir les deux mondes : cloud managé et self-hosted.
 
-> 💡 **Objectif Portfolio** : Chaque option de déploiement illustre une maturité infrastructure différente, avec ses trade-offs, ses cas d'usage réels et ses implications opérationnelles.
+> 💡 **Objectif Portfolio** : Démontrer la maîtrise du déploiement applicatif sur cloud managé **et** on-premise, avec les trade-offs de chaque approche.
 
 ![Accueil](./.img/acceuil.png)
 
 ---
 
-## 🗺️ Progression Infrastructure
+## ☁️ Déploiement Cloud AWS — *production actuelle*
 
-Ce projet illustre **l'évolution naturelle** d'une infrastructure e-commerce, de la plus simple à la plus résiliente :
+Ce frontend est aujourd'hui **déployé sur AWS** dans une architecture cloud-native, servi de **3 façons différentes** derrière un même ALB pour illustrer la progression IaaS → PaaS → Serverless :
+
+| Option A | Option B | Option C |
+|----------|----------|----------|
+| 🟠 **EC2** (NGINX natif) | 🟢 **Elastic Beanstalk** (Docker/ECR) | 🟣 **ECS Fargate** (serverless) |
+
+Un **badge dynamique dans la navbar** (`VITE_DEPLOY_PLATFORM`) indique en temps réel sur quelle plateforme tourne l'instance servie. Les microservices tournent sur **EKS Auto Mode + Helm**, la base sur **RDS MySQL**.
+
+👉 **Infrastructure complète, guides pas-à-pas (console + CLI), Terraform et architecture détaillée :**
+**[➜ ecommerce-terraform-aws](https://github.com/yaraportfolio/ecommerce-terraform-aws)**
+
+![Architecture AWS](https://raw.githubusercontent.com/yaraportfolio/ecommerce-terraform-aws/main/img/architecture.png)
+
+> ℹ️ La suite de ce README documente le **parcours on-premise / self-hosted** (progression VM → Docker → Swarm → Kubernetes auto-hébergé). Conservé pour sa valeur pédagogique et pour un déploiement on-prem — les adresses `192.168.56.x` correspondent à cet environnement local.
+
+---
+
+## 🗺️ Progression Infrastructure — *parcours on-premise (self-hosted)*
+
+Ce projet illustre aussi **l'évolution naturelle** d'une infrastructure e-commerce auto-hébergée, de la plus simple à la plus résiliente :
 
 ```
 
