@@ -18,7 +18,7 @@ Frontend React (SPA) de la plateforme e-commerce **microservices**. NGINX sert l
 
 ---
 
-## ☁️ Déploiement Cloud AWS — *production actuelle*
+## ☁️ Déploiement Cloud AWS - *production actuelle*
 
 Ce frontend est **déployé sur AWS** dans une architecture cloud-native, servi de **3 façons différentes** derrière un même ALB pour illustrer la progression IaaS → PaaS → Serverless :
 
@@ -95,9 +95,9 @@ npm run build        # génère dist/
 
 On distingue le déploiement du **frontend** (ce repo) de celui des **microservices** (repos dédiés). Le frontend proxifie `/api/*` vers la couche microservices, quelle que soit sa cible.
 
-### A. Le frontend — *2 façons*
+### A. Le frontend - *2 façons*
 
-#### A1 — Directement sur un serveur (NGINX natif)
+#### A1 - Directement sur un serveur (NGINX natif)
 
 Build statique servi par un NGINX installé sur la VM, sans Docker.
 
@@ -108,9 +108,9 @@ sudo cp -r dist/* /var/www/html/ecommerce/
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-#### A2 — Docker / Docker Compose (conteneur NGINX)
+#### A2 - Docker / Docker Compose (conteneur NGINX)
 
-Image multi-stage (Node → NGINX alpine). `BACKEND_URL` injecté par `envsubst` au démarrage — **changer de backend sans rebuild**.
+Image multi-stage (Node → NGINX alpine). `BACKEND_URL` injecté par `envsubst` au démarrage - **changer de backend sans rebuild**.
 
 ```bash
 cp .env.example .env
@@ -128,7 +128,7 @@ docker compose restart frontend   # après modif de .env (~10s)
 🚀 Starting NGINX...
 ```
 
-### B. Les microservices — *Swarm ou Kubernetes*
+### B. Les microservices - *Swarm ou Kubernetes*
 
 Les 4 microservices se déploient **indépendamment du frontend** (chacun son repo + image GHCR), au choix sur :
 
@@ -151,7 +151,7 @@ Swarm Manager (192.168.56.111)
 MariaDB (192.168.56.115, externe au cluster)
 ```
 
-**Kubernetes + Helm** (orchestration, HPA, rollback déclaratif) — **même chart que sur AWS EKS**, voir [ecommerce-k8s-helm](https://github.com/yaraportfolio/ecommerce-k8s-helm) :
+**Kubernetes + Helm** (orchestration, HPA, rollback déclaratif) - **même chart que sur AWS EKS**, voir [ecommerce-k8s-helm](https://github.com/yaraportfolio/ecommerce-k8s-helm) :
 ```
 K8s Cluster (192.168.56.111)
    ├── Ingress Controller (NodePort 30080)
@@ -210,7 +210,7 @@ server {
 | `BACKEND_URL` | URL de la couche microservices (Ingress/ALB) ciblée par le proxy `/api` | - | ✅ (conteneur) |
 | `BACKEND_HOST` | Header `Host` pour l'Ingress Kubernetes | `api.ecommerce.local` | ✅ (conteneur) |
 | `FRONTEND_PORT` | Port d'exposition NGINX | `80` | ❌ |
-| `VITE_DEPLOY_PLATFORM` | Badge plateforme navbar (`ec2`, `beanstalk`, `ecs`, `eks`) — **build-time** | *(vide)* | ❌ |
+| `VITE_DEPLOY_PLATFORM` | Badge plateforme navbar (`ec2`, `beanstalk`, `ecs`, `eks`) - **build-time** | *(vide)* | ❌ |
 
 > 💡 `BACKEND_URL`/`BACKEND_HOST` sont des variables **runtime** (injectées par `envsubst` dans NGINX). `VITE_DEPLOY_PLATFORM` est **build-time** (intégrée au bundle React).
 
@@ -292,6 +292,6 @@ Panier → Checkout → Commande
 
 ## 👨‍💻 Auteur
 
-**Yara Mahi Mohamed** — Portfolio DevOps & SRE · Architecture Microservices
+**Yara Mahi Mohamed** - Portfolio DevOps & SRE · Architecture Microservices
 
 *⭐ N'oubliez pas de star ce repo si vous le trouvez utile !*
